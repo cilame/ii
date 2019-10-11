@@ -29,12 +29,13 @@ def init_tcc():
     zf = zipfile.ZipFile(winapi)
     zf.extractall(path = targ)
     fd = 'winapi-full-for-0.9.27'
-    finclude = os.path.join(curr, fd, 'include')
+    finclude = os.path.join(targ, fd, 'include')
     tinclude = os.path.join(targ, 'tcc\\include')
     for x, _, z in os.walk(finclude):
         v = tinclude + x.split(fd)[1].split('include')[1]
         for i in z:
             if not os.path.isfile(os.path.join(v, i)):
+                if not os.path.isdir(v): os.mkdir(v)
                 shutil.copy(os.path.join(x, i), v)
     shutil.rmtree(os.path.join(targ, fd))
     tccenv = targ + '\\tcc'

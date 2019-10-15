@@ -5,9 +5,9 @@ import zipfile
 import platform
 
 if platform.architecture()[0].startswith('32'):
-    _ver = '64'
-elif platform.architecture()[0].startswith('64'):
     _ver = '32'
+elif platform.architecture()[0].startswith('64'):
+    _ver = '64'
 
 curr = os.path.dirname(__file__)
 targ = os.path.join(os.path.dirname(sys.executable), 'Scripts')
@@ -44,10 +44,10 @@ def install_tcc():
     zf.extractall(path = targ)
     fd = 'winapi-full-for-0.9.27'
     finclude = os.path.join(targ, fd, 'include')
-    tinclude = os.path.join(targ, 'tcc\\include')
+    tinclude = os.path.join(targ, 'tcc', 'include')
     copytree(finclude, tinclude)
     shutil.rmtree(os.path.join(targ, fd))
-    tccenv = targ + '\\tcc'
+    tccenv = os.path.join(targ, 'tcc')
     copytree(tccenv, targ)
     print('tcc in {}'.format(targ))
     shutil.rmtree(tccenv)
@@ -71,9 +71,14 @@ def install_all():
     install_nasm()
 
 def execute():
+    if not platform.platform().lower().startswith('windows'):
+        print('only work in windows platform.')
+        exit(0)
     argv = sys.argv
     if 'install' in argv:
         install_all()
+    else:
+        print('pls use "ii install" to install upx,tcc,nasm.')
 
 if __name__ == '__main__':
     install_all()

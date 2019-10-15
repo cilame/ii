@@ -24,12 +24,14 @@ setup(
             'upx-3.95-32.zip',
             'upx-3.95-64.zip',
             'winapi-full-for-0.9.27.zip',
+            'nasm-2.14.02-win32.zip',
+            'nasm-2.14.02-win64.zip',
         ]
     },
     python_requires=">=3.5",
     entry_points={
         'console_scripts': [
-            'ii = ii.init:init_all',
+            'ii = ii.main:execute',
         ]
     },
 )

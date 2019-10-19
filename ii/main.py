@@ -65,21 +65,47 @@ def install_nasm():
     shutil.rmtree(tccenv)
     print()
 
-def install_all():
-    install_upx()
-    install_tcc()
-    install_nasm()
+def install_ollydbg():
+    _ollydbg = 'ollydbg.zip'
+    _targ = os.path.dirname(sys.executable)
+    print('init ollydbg tool: {}'.format(_ollydbg))
+    ollydbg = os.path.join(curr, _ollydbg)
+    zf = zipfile.ZipFile(ollydbg)
+    zf.extractall(path = _targ)
+    print('ollydbg file in {}'.format(_targ))
+    print('ollydbg ollydbg can only parse win32 execfile now.')
+    print()
+
+def install(install_pkg='all'):
+    if install_pkg == 'upx':
+        install_upx()
+    elif install_pkg == 'tcc':
+        install_tcc()
+    elif install_pkg == 'nasm':
+        install_nasm()
+    elif install_pkg == 'ollydbg':
+        install_ollydbg()
+    elif install_pkg == 'all':
+        install_upx()
+        install_tcc()
+        install_nasm()
+        install_ollydbg()
+    else:
+        print('unknown pkg:{}'.format(install_pkg))
 
 def execute():
     if not platform.platform().lower().startswith('windows'):
         print('only work in windows platform.')
         exit(0)
     argv = sys.argv
-    if 'install' in argv:
-        install_all()
+    if argv[1] == 'install':
+        if len(argv) > 2:
+            install(argv[2])
+        else:
+            install(install_pkg='all')
     else:
-        print('pls use "ii install" to install upx,tcc,nasm.')
+        print('pls use "ii install" to install all upx,tcc,nasm,ollydbg.')
 
 if __name__ == '__main__':
-    install_all()
+    install(install_pkg='ollydbg')
     pass

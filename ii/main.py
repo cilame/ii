@@ -98,11 +98,12 @@ def execute():
         print('only work in windows platform.')
         exit(0)
     argv = sys.argv
-    if argv[1] == 'install':
-        if len(argv) > 2:
-            install(argv[2])
-        else:
-            install(install_pkg='all')
+    if len(argv) > 1:
+        if argv[1] == 'install':
+            if len(argv) > 2:
+                install(argv[2])
+            else:
+                install(install_pkg='all')
     else:
         print('pls use "ii install" to install all upx,tcc,nasm,ollydbg.')
 

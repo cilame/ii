@@ -19,6 +19,7 @@ setup(
     ],
     package_data ={
         "ii":[
+            'ollydbg.zip',
             'tcc-0.9.27-win32-bin.zip',
             'tcc-0.9.27-win64-bin.zip',
             'upx-3.95-32.zip',

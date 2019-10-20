@@ -19,6 +19,8 @@ setup(
     ],
     package_data ={
         "ii":[
+            'procexp32.zip',
+            'procexp64.zip',
             'ollydbg.zip',
             'tcc-0.9.27-win32-bin.zip',
             'tcc-0.9.27-win64-bin.zip',

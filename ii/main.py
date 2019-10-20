@@ -76,6 +76,16 @@ def install_ollydbg():
     print('ollydbg ollydbg can only parse win32 execfile now.')
     print()
 
+def install_procexp():
+    _procexp = 'procexp{}.zip'.format(_ver)
+    _targ = os.path.dirname(sys.executable)
+    print('init procexp tool: {}'.format(_procexp))
+    procexp = os.path.join(curr, _procexp)
+    zf = zipfile.ZipFile(procexp)
+    zf.extractall(path = _targ)
+    print('procexp file in {}'.format(_targ))
+    print()
+
 def install(install_pkg='all'):
     if install_pkg == 'upx':
         install_upx()
@@ -85,13 +95,46 @@ def install(install_pkg='all'):
         install_nasm()
     elif install_pkg == 'ollydbg':
         install_ollydbg()
+    elif install_pkg == 'procexp':
+        install_procexp()
     elif install_pkg == 'all':
         install_upx()
         install_tcc()
         install_nasm()
         install_ollydbg()
+        install_procexp()
     else:
         print('unknown pkg:{}'.format(install_pkg))
+
+def gui():
+    q = {}
+    l = ['ollydbg','procexp']
+    c = os.path.dirname(sys.executable)
+    for i in os.listdir(c):
+        v = i.lower().split('.')[0]
+        if any([v.startswith(j) for j in l]) and i.endswith('exe'):
+            q[v] = os.path.join(c, i)
+    if not q:
+        print('not install any tool in:{}'.format(l))
+
+    import tkinter
+    import tkinter.ttk as ttk
+    import functools
+    root = tkinter.Tk()
+    root.title('快捷打开工具')
+    for i in q:
+        x = lambda i:(os.popen(q[i]), root.quit())
+        x = functools.partial(x, i)
+        bt = ttk.Button(root, text=i, command=x)
+        bt.pack(side=tkinter.TOP)
+    scn_w, scn_h = root.maxsize()
+    curWidth = 100
+    curHight = 200
+    cen_x = (scn_w - curWidth) / 2
+    cen_y = (scn_h - curHight) / 2
+    size_xy = '%dx%d+%d+%d' % (curWidth, curHight, cen_x, cen_y)
+    root.geometry(size_xy)
+    root.mainloop()
 
 def execute():
     if not platform.platform().lower().startswith('windows'):
@@ -104,9 +147,13 @@ def execute():
                 install(argv[2])
             else:
                 install(install_pkg='all')
+        if argv[1] == 'gui':
+            gui()
     else:
-        print('pls use "ii install" to install all upx,tcc,nasm,ollydbg.')
+        print('pls use "ii install" to install all upx,tcc,nasm,ollydbg,procexp.')
 
 if __name__ == '__main__':
-    install(install_pkg='ollydbg')
+    # install(install_pkg='procexp')
+    sys.argv.append('gui')
+    execute()
     pass

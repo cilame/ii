@@ -116,7 +116,6 @@ def gui():
             q[v] = os.path.join(c, i)
     if not q:
         print('not install any tool in:{}'.format(l))
-
     import tkinter
     import tkinter.ttk as ttk
     import functools
@@ -147,8 +146,6 @@ def execute():
                 install(argv[2])
             else:
                 install(install_pkg='all')
-        if argv[1] == 'gui':
-            gui()
     else:
         print('pls use "ii install" to install all upx,tcc,nasm,ollydbg,procexp.')
 

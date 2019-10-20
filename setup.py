@@ -35,6 +35,9 @@ setup(
     entry_points={
         'console_scripts': [
             'ii = ii.main:execute',
+        ],
+        'gui_scripts': [
+            'igui = ii.main:gui',
         ]
     },
 )

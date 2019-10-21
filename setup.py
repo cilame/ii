@@ -19,6 +19,7 @@ setup(
     ],
     package_data ={
         "ii":[
+            'Notepad++.zip',
             'procexp32.zip',
             'procexp64.zip',
             'ollydbg.zip',

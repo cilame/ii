@@ -67,7 +67,7 @@ def install_nasm():
 
 def install_ollydbg():
     _ollydbg = 'ollydbg.zip'
-    _targ = os.path.dirname(sys.executable)
+    _targ = os.path.join(os.path.dirname(sys.executable), 'ollydbg')
     print('init ollydbg tool: {}'.format(_ollydbg))
     ollydbg = os.path.join(curr, _ollydbg)
     zf = zipfile.ZipFile(ollydbg)
@@ -78,12 +78,22 @@ def install_ollydbg():
 
 def install_procexp():
     _procexp = 'procexp{}.zip'.format(_ver)
-    _targ = os.path.dirname(sys.executable)
+    _targ = os.path.join(os.path.dirname(sys.executable), 'procexp')
     print('init procexp tool: {}'.format(_procexp))
     procexp = os.path.join(curr, _procexp)
     zf = zipfile.ZipFile(procexp)
     zf.extractall(path = _targ)
     print('procexp file in {}'.format(_targ))
+    print()
+
+def install_notepadpp():
+    _notepadpp = 'notepad++.zip'
+    _targ = os.path.dirname(sys.executable)
+    print('init notepadpp tool: {}'.format(_notepadpp))
+    notepadpp = os.path.join(curr, _notepadpp)
+    zf = zipfile.ZipFile(notepadpp)
+    zf.extractall(path = _targ)
+    print('notepadpp file in {}'.format(_targ))
     print()
 
 def install(install_pkg='all'):
@@ -97,6 +107,8 @@ def install(install_pkg='all'):
         install_ollydbg()
     elif install_pkg == 'procexp':
         install_procexp()
+    elif install_pkg == 'notepadpp':
+        install_notepadpp()
     elif install_pkg == 'all':
         install_upx()
         install_tcc()
@@ -108,12 +120,15 @@ def install(install_pkg='all'):
 
 def gui():
     q = {}
-    l = ['ollydbg','procexp']
+    l = ['ollydbg','procexp','notepad++']
     c = os.path.dirname(sys.executable)
-    for i in os.listdir(c):
-        v = i.lower().split('.')[0]
-        if any([v.startswith(j) for j in l]) and i.endswith('exe'):
-            q[v] = os.path.join(c, i)
+    for i in l:
+        _c = os.path.join(c, i)
+        if os.path.isdir(_c):
+            if i == 'ollydbg':   fn = 'ollydbg.exe'
+            if i == 'procexp':   fn = 'procexp{}.exe'.format(_ver)
+            if i == 'notepad++': fn = 'notepad++.exe'
+            q[i] = os.path.join(_c, fn)
     if not q:
         print('not install any tool in:{}'.format(l))
     import tkinter
@@ -122,7 +137,7 @@ def gui():
     root = tkinter.Tk()
     root.title('快捷打开工具')
     for i in q:
-        x = lambda i:(os.popen(q[i]), root.quit())
+        x = lambda i:(os.popen(q[i]), print(q[i]), root.quit())
         x = functools.partial(x, i)
         bt = ttk.Button(root, text=i, command=x)
         bt.pack(side=tkinter.TOP)
@@ -150,7 +165,7 @@ def execute():
         print('pls use "ii install" to install all upx,tcc,nasm,ollydbg,procexp.')
 
 if __name__ == '__main__':
-    # install(install_pkg='procexp')
-    sys.argv.append('gui')
-    execute()
+    # install(install_pkg='all')
+    # install_notepadpp()
+    gui()
     pass

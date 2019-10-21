@@ -115,6 +115,7 @@ def install(install_pkg='all'):
         install_nasm()
         install_ollydbg()
         install_procexp()
+        install_notepadpp()
     else:
         print('unknown pkg:{}'.format(install_pkg))
 

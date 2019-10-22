@@ -3,6 +3,7 @@ import sys
 import shutil
 import zipfile
 import platform
+import re
 
 if platform.architecture()[0].startswith('32'):
     _ver = '32'
@@ -94,6 +95,14 @@ def install_notepadpp():
     zf = zipfile.ZipFile(notepadpp)
     zf.extractall(path = _targ)
     print('notepadpp file in {}'.format(_targ))
+    config = os.path.join(_targ, 'notepad++', 'config.xml')
+    theme = os.path.join(_targ, 'Notepad++', 'themes', 'Obsidian.xml')#.replace('/','\\')
+    with open(config, 'r', encoding='utf-8') as f:
+        cfgstr = f.read()
+    with open(config, 'w', encoding='utf-8') as f:
+        a = r'<GUIConfig name="stylerTheme" path="([^>]+)" />'
+        b = '<GUIConfig name="stylerTheme" path="{}" />'.format(theme.replace('\\','/'))
+        f.write(re.sub(a, b, cfgstr))
     print()
 
 def install(install_pkg='all'):
@@ -167,6 +176,6 @@ def execute():
 
 if __name__ == '__main__':
     # install(install_pkg='all')
-    # install_notepadpp()
-    gui()
+    install_notepadpp()
+    # gui()
     pass

@@ -37,6 +37,7 @@ cmd> igui
 # 另外 notepad++ 打开后我个人自定义了一部分快捷键，注释的快捷键和原生的不一样。按个人习惯修改即可
 # alt + q    使用tcc编译当前文件（命令同 tcc xx.c）如需更加复杂的命令配置，请善用网络搜索功能
 # alt + w    执行编译后的文件，默认以当前文件名字和地址索引exe文件，并以cmd执行
+# alt + d    根据当前文件位置打开命令行，解决快捷键的一定局限，更多时候还是需要命令行处理
 # alt + e    打开左侧的文件夹列表窗口
 # alt + r    打开右侧的文档结构图窗口
 # alt + `    如果安装 gcc 在环境变量中，使用 gcc 编译当前脚本（命令同 gcc -o xx.exe xx.c）
@@ -54,7 +55,10 @@ cmd> igui
 // 4) 桌面创建一个 test.c 直接拖入notepad++，输入最初的脚本：
 #include <stdio.h>
 #include <windows.h>
-int main(){
+// 注意这里，tcc 编译 win 程序出现问题的话，可以使用(alt+d)打开命令行来编译执行定位问题
+// 有时 tcc 编译 win 程序时出现问题，只要换上下面的函数替代 main 得话就能编译成功。
+// 这种处理的执行文件 tcc 编译后“双击执行”时自动去除黑窗口。不过看不到 printf 输出了。
+int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow) {
     MessageBoxA(NULL,"hello world.","test",0);
 }
 // 5) alt+q 编译， alt+w 执行。

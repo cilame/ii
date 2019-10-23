@@ -36,10 +36,10 @@ setup(
     entry_points={
         'console_scripts': [
             'ii = ii.main:execute',
-            'inote = ii.main:notepad',
         ],
         'gui_scripts': [
             'igui = ii.main:gui',
+            'inote = ii.main:notepad',
         ]
     },
 )

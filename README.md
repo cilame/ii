@@ -62,7 +62,7 @@ cmd> inote
 // 注意这里，tcc 编译 win 程序没有编译成功的话，可以使用(alt+d)打开命令行来编译执行定位问题
 // 有时 tcc 编译 win 程序时出现问题，只要换上下面 win 的入口的函数替代 main 得话就能编译成功。
 // 这种处理的执行文件 tcc 编译后“双击执行”时自动去除黑窗口。不过看不到 printf 输出了。
-// 虽然稍微有点不方便，但是这一切都是为了更加轻便的开发环境。
+// 如果要在 main 里面也能实现win函数，tcc 需注意使用 -luser32 -lkernel32 主动去链接需要的函数连接库。
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow) {
     MessageBoxA(NULL,"hello world.","test",0);
 }

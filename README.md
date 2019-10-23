@@ -41,9 +41,13 @@ cmd> igui
 # alt + e    打开左侧的文件夹列表窗口
 # alt + r    打开右侧的文档结构图窗口
 # alt + `    如果安装 gcc 在环境变量中，使用 gcc 编译当前脚本（命令同 gcc -o xx.exe xx.c）
-# ctrl + /   注释/解开注释（修改了原本的 notepad 注释方式，使用了 sublime 风格的注释方式）
+# ctrl + /   注释/解开注释（修改了原本的 notepad 注释方式，使用了 sublime 快捷键的注释方式）
 # ctrl + \              多行注释
 # ctrl + shift + \      多行解注释
+
+cmd> inote
+
+# 使用上面的方式可以直接打开 notepad（因为编辑器的特殊性，需要更加顺手的使用方式）
 ```
 
 - ##### 个人的习惯开发方式
@@ -51,13 +55,14 @@ cmd> igui
 ```c
 // 1) 适合喜欢轻量级的快速开发，所以通常只有很少的脚本
 // 2) 个人习惯在桌面进行开发，所以会在桌面的左侧留出合适的空间用于放置脚本
-// 3) win + r 打开运行窗口，输入 igui 打开工具窗，tab键切换选择，空格选中打开 notepad++
+// 3) win + r 打开运行窗口，输入 inote 打开 notepad++
 // 4) 桌面创建一个 test.c 直接拖入notepad++，输入最初的脚本：
 #include <stdio.h>
 #include <windows.h>
-// 注意这里，tcc 编译 win 程序出现问题的话，可以使用(alt+d)打开命令行来编译执行定位问题
-// 有时 tcc 编译 win 程序时出现问题，只要换上下面的函数替代 main 得话就能编译成功。
+// 注意这里，tcc 编译 win 程序没有编译成功的话，可以使用(alt+d)打开命令行来编译执行定位问题
+// 有时 tcc 编译 win 程序时出现问题，只要换上下面 win 的入口的函数替代 main 得话就能编译成功。
 // 这种处理的执行文件 tcc 编译后“双击执行”时自动去除黑窗口。不过看不到 printf 输出了。
+// 虽然稍微有点不方便，但是这一切都是为了更加轻便的开发环境。
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow) {
     MessageBoxA(NULL,"hello world.","test",0);
 }

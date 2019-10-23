@@ -160,6 +160,10 @@ def gui():
     root.geometry(size_xy)
     root.mainloop()
 
+def notepad():
+    c = os.path.join(os.path.dirname(sys.executable), 'notepad++', 'notepad++.exe')
+    os.popen(c)
+
 def execute():
     if not platform.platform().lower().startswith('windows'):
         print('only work in windows platform.')

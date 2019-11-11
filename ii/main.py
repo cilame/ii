@@ -87,6 +87,16 @@ def install_procexp():
     print('procexp file in {}'.format(_targ))
     print()
 
+def install_procmonitor():
+    _procmon = 'ProcessMonitor.zip'
+    _targ = os.path.join(os.path.dirname(sys.executable), 'procmon')
+    print('init procmon tool: {}'.format(_procmon))
+    procmon = os.path.join(curr, _procmon)
+    zf = zipfile.ZipFile(procmon)
+    zf.extractall(path = _targ)
+    print('procmon file in {}'.format(_targ))
+    print()
+
 def install_notepadpp():
     _notepadpp = 'notepad++.zip'
     _targ = os.path.dirname(sys.executable)
@@ -118,6 +128,8 @@ def install(install_pkg='all'):
         install_procexp()
     elif install_pkg == 'notepadpp':
         install_notepadpp()
+    elif install_pkg == 'procmon':
+        install_notepadpp()
     elif install_pkg == 'all':
         install_upx()
         install_tcc()
@@ -125,12 +137,13 @@ def install(install_pkg='all'):
         install_ollydbg()
         install_procexp()
         install_notepadpp()
+        install_procmonitor()
     else:
         print('unknown pkg:{}'.format(install_pkg))
 
 def gui():
     q = {}
-    l = ['ollydbg','procexp','notepad++']
+    l = ['ollydbg','procexp','notepad++','procmon']
     c = os.path.dirname(sys.executable)
     for i in l:
         _c = os.path.join(c, i)
@@ -138,6 +151,7 @@ def gui():
             if i == 'ollydbg':   fn = 'ollydbg.exe'
             if i == 'procexp':   fn = 'procexp{}.exe'.format(_ver)
             if i == 'notepad++': fn = 'notepad++.exe'
+            if i == 'procmon':   fn = 'Procmon.exe'
             q[i] = os.path.join(_c, fn)
     if not q:
         print('not install any tool in:{}'.format(l))
@@ -176,10 +190,10 @@ def execute():
             else:
                 install(install_pkg='all')
     else:
-        print('pls use "ii install" to install all upx,tcc,nasm,ollydbg,procexp.')
+        print('pls use "ii install" to install all upx,tcc,nasm,ollydbg,procexp,procmon.')
 
 if __name__ == '__main__':
     # install(install_pkg='all')
-    install_notepadpp()
+    install_procmonitor()
     # gui()
     pass

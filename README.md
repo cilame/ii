@@ -9,6 +9,7 @@
 3) upx          压缩器    (可执行程序打包工具)
 4) ollydbg    32调试器    (纯净版，仅能调试32位程序)
 5) procexp    进程管理    (对某些程序需要检查进程状态)
+5) procmon    进程监视    (对某些程序需要监视进程行为)
 6) notepad++    编辑器    (精心准备主题风格后的IDE)
 ```
 
@@ -28,7 +29,7 @@ cmd> ii install
 # 即可直接在命令行中直接使用 tcc, upx, nasm(ndisasm) 的指令。
 # 其中 tcc 使用了文件包含的处理，将 windows 的更多的 api 函数库文件解压合并在 tcc 工作目录里面
 #     所以这里的 tcc 会比一般情况下的 tcc 开发 windows 程序要轻松得多。
-# 另外 ollydbg, procexp, notepad++ 均是 gui 工具。所以使用了另一种打开方式。
+# 另外 ollydbg, procexp, notepad++, procmon 均是 gui 工具。所以使用了另一种打开方式。
 
 cmd> igui
 

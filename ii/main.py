@@ -141,6 +141,14 @@ def install(install_pkg='all'):
     else:
         print('unknown pkg:{}'.format(install_pkg))
 
+def uninstall(uninstall_pkg):
+    _targ = os.path.dirname(sys.executable)
+    _targ = os.path.join(_targ, 'Notepad++')
+    if uninstall_pkg == 'notepadpp':
+        shutil.rmtree(_targ)
+    else:
+        print('pkg:{} can not be uninstalled'.format(uninstall_pkg))
+
 def gui():
     q = {}
     l = ['ollydbg','procexp','notepad++','procmon']
@@ -189,8 +197,13 @@ def execute():
                 install(argv[2])
             else:
                 install(install_pkg='all')
+        if argv[1] == 'uninstall':
+            if len(argv) == 2:
+                print('pls enter the name of the software you want to uninstall.')
+            else:
+                uninstall(argv[2])
     else:
-        print('pls use "ii install" to install all upx,tcc,nasm,ollydbg,procexp,procmon.')
+        print('pls use "ii install" to install all upx,tcc,nasm,ollydbg,procexp,procmon,notepadpp.')
 
 if __name__ == '__main__':
     # install(install_pkg='all')

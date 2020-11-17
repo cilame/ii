@@ -131,7 +131,7 @@ def install(install_pkg='all'):
     elif install_pkg == 'procmon':
         install_notepadpp()
     elif install_pkg == 'all':
-        install_upx()
+        # install_upx() # upx 由于会影响到 pyinstaller 所以将不再默认安装进来
         install_tcc()
         install_nasm()
         install_ollydbg()
@@ -143,9 +143,12 @@ def install(install_pkg='all'):
 
 def uninstall(uninstall_pkg):
     _targ = os.path.dirname(sys.executable)
-    _targ = os.path.join(_targ, 'Notepad++')
     if uninstall_pkg == 'notepadpp':
+        _targ = os.path.join(_targ, 'Notepad++')
         shutil.rmtree(_targ)
+    if uninstall_pkg == 'upx':
+        _targ = os.path.join(targ, 'upx.exe')
+        os.remove(_targ)
     else:
         print('pkg:{} can not be uninstalled'.format(uninstall_pkg))
 
@@ -203,7 +206,7 @@ def execute():
             else:
                 uninstall(argv[2])
     else:
-        print('pls use "ii install" to install all upx,tcc,nasm,ollydbg,procexp,procmon,notepadpp.')
+        print('pls use "ii install" to install all tcc,nasm,ollydbg,procexp,procmon,notepadpp.')
 
 if __name__ == '__main__':
     # install(install_pkg='all')

@@ -33,6 +33,22 @@ def install_upx():
     zf.extractall(path = targ)
     print('upx file in {}'.format(targ))
     print()
+def uninstall_upx():
+    _targ = os.path.join(targ, 'upx.exe')
+    os.remove(_targ)
+
+def install_adb():
+    _adb = 'adb-tools.zip'
+    print('init adb tool: {}'.format(_adb))
+    adb = os.path.join(curr, _adb)
+    zf = zipfile.ZipFile(adb)
+    zf.extractall(path = targ)
+    print('adb file in {}'.format(targ))
+    print()
+def uninstall_adb():
+    _targ = os.path.join(targ, 'adb.exe')          ; os.remove(_targ)
+    _targ = os.path.join(targ, 'AdbWinApi.dll')    ; os.remove(_targ)
+    _targ = os.path.join(targ, 'AdbWinUsbApi.dll') ; os.remove(_targ)
 
 def install_tcc():
     _tcc = 'tcc-0.9.27-win{}-bin.zip'.format(_ver)
@@ -76,6 +92,10 @@ def install_ollydbg():
     print('ollydbg file in {}'.format(_targ))
     print('ollydbg ollydbg can only parse win32 execfile now.')
     print()
+def uninstall_ollydbg():
+    _targ = os.path.dirname(sys.executable)
+    _targ = os.path.join(_targ, 'ollydbg')
+    shutil.rmtree(_targ)
 
 def install_procexp():
     _procexp = 'procexp{}.zip'.format(_ver)
@@ -86,6 +106,10 @@ def install_procexp():
     zf.extractall(path = _targ)
     print('procexp file in {}'.format(_targ))
     print()
+def uninstall_procexp():
+    _targ = os.path.dirname(sys.executable)
+    _targ = os.path.join(_targ, 'procexp')
+    shutil.rmtree(_targ)
 
 def install_procmonitor():
     _procmon = 'ProcessMonitor.zip'
@@ -96,6 +120,10 @@ def install_procmonitor():
     zf.extractall(path = _targ)
     print('procmon file in {}'.format(_targ))
     print()
+def uninstall_procmonitor():
+    _targ = os.path.dirname(sys.executable)
+    _targ = os.path.join(_targ, 'procmon')
+    shutil.rmtree(_targ)
 
 def install_notepadpp():
     _notepadpp = 'notepad++.zip'
@@ -114,6 +142,10 @@ def install_notepadpp():
         b = '<GUIConfig name="stylerTheme" path="{}" />'.format(theme.replace('\\','/'))
         f.write(re.sub(a, b, cfgstr))
     print()
+def uninstall_notpadpp():
+    _targ = os.path.dirname(sys.executable)
+    _targ = os.path.join(_targ, 'Notepad++')
+    shutil.rmtree(_targ)
 
 def install(install_pkg='all'):
     if install_pkg == 'upx':
@@ -130,6 +162,8 @@ def install(install_pkg='all'):
         install_notepadpp()
     elif install_pkg == 'procmon':
         install_notepadpp()
+    elif install_pkg == 'adb':
+        install_adb()
     elif install_pkg == 'all':
         # install_upx() # upx 由于会影响到 pyinstaller 所以将不再默认安装进来
         install_tcc()
@@ -142,13 +176,18 @@ def install(install_pkg='all'):
         print('unknown pkg:{}'.format(install_pkg))
 
 def uninstall(uninstall_pkg):
-    _targ = os.path.dirname(sys.executable)
     if uninstall_pkg == 'notepadpp':
-        _targ = os.path.join(_targ, 'Notepad++')
-        shutil.rmtree(_targ)
+        uninstall_notpadpp()
     if uninstall_pkg == 'upx':
-        _targ = os.path.join(targ, 'upx.exe')
-        os.remove(_targ)
+        uninstall_upx()
+    if uninstall_pkg == 'adb':
+        uninstall_adb()
+    if uninstall_pkg == 'ollydbg':
+        uninstall_ollydbg()
+    if uninstall_pkg == 'procexp':
+        uninstall_procexp()
+    if uninstall_pkg == 'procmon':
+        uninstall_procmonitor()
     else:
         print('pkg:{} can not be uninstalled'.format(uninstall_pkg))
 
@@ -207,9 +246,12 @@ def execute():
                 uninstall(argv[2])
     else:
         print('pls use "ii install" to install all tcc,nasm,ollydbg,procexp,procmon,notepadpp.')
+        print('(adb,upx not in default install all)')
+        print('use "ii install $pkg" install single tool.')
 
 if __name__ == '__main__':
     # install(install_pkg='all')
-    install_procmonitor()
+    # install_procmonitor()
     # gui()
+    # install_adb()
     pass

@@ -178,15 +178,15 @@ def install(install_pkg='all'):
 def uninstall(uninstall_pkg):
     if uninstall_pkg == 'notepadpp':
         uninstall_notpadpp()
-    if uninstall_pkg == 'upx':
+    elif uninstall_pkg == 'upx':
         uninstall_upx()
-    if uninstall_pkg == 'adb':
+    elif uninstall_pkg == 'adb':
         uninstall_adb()
-    if uninstall_pkg == 'ollydbg':
+    elif uninstall_pkg == 'ollydbg':
         uninstall_ollydbg()
-    if uninstall_pkg == 'procexp':
+    elif uninstall_pkg == 'procexp':
         uninstall_procexp()
-    if uninstall_pkg == 'procmon':
+    elif uninstall_pkg == 'procmon':
         uninstall_procmonitor()
     else:
         print('pkg:{} can not be uninstalled'.format(uninstall_pkg))
@@ -245,9 +245,13 @@ def execute():
             else:
                 uninstall(argv[2])
     else:
+        import ii
+        print('ii verison: {}.'.format(ii.__version__))
         print('pls use "ii install" to install all tcc,nasm,ollydbg,procexp,procmon,notepadpp.')
         print('(adb,upx not in default install all)')
         print('use "ii install $pkg" install single tool.')
+        print('use "igui" start some tools')
+        print('use "inote" start notepadpp')
 
 if __name__ == '__main__':
     # install(install_pkg='all')

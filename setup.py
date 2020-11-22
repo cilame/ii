@@ -19,6 +19,7 @@ setup(
     ],
     package_data ={
         "ii":[
+            'adb-tools.zip',
             'Notepad++.zip',
             'procexp32.zip',
             'procexp64.zip',
